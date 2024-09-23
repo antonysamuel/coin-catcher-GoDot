@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://brn0chnsyfjep"]
+
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_ehg5f"]
+[ext_resource type="Texture2D" uid="uid://m03b8rs5rdd1" path="res://assets/GameBg.png" id="1_qvixt"]
+[ext_resource type="PackedScene" uid="uid://dbmtiojehybvy" path="res://scenes/paddle.tscn" id="2_omrvr"]
+[ext_resource type="PackedScene" uid="uid://bw73ixvjqlnts" path="res://scenes/gem.tscn" id="3_7q52l"]
+[ext_resource type="AudioStream" uid="uid://lpg20ws4rmwm" path="res://assets/bgm_action_5.mp3" id="5_uf5aj"]
+[ext_resource type="AudioStream" uid="uid://d0nhfkkkpwyo7" path="res://assets/spell1_0.wav" id="6_vb3pd"]
+[ext_resource type="Texture2D" uid="uid://cjynksi6fkh6y" path="res://assets/heart.png" id="7_1ave3"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ehg5f")
+gem_scene = ExtResource("3_7q52l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(571.722, 327.375)
+scale = Vector2(0.669, 0.7)
+texture = ExtResource("1_qvixt")
+
+[node name="Paddle" parent="." instance=ExtResource("2_omrvr")]
+position = Vector2(554, 590)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.818271, 0.576355, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.672593, 0.540273, 1, 1)
+theme_override_colors/font_outline_color = Color(9.62615e-07, 0.585536, 0.771397, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 48
+text = "00000"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_uf5aj")
+volume_db = -12.55
+autoplay = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_vb3pd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 892.0
+offset_top = 15.0
+offset_right = 1908.0
+offset_bottom = 215.0
+grow_horizontal = 0
+scale = Vector2(0.24, 0.24)
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_1ave3")
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_1ave3")
+
+[node name="TextureRect3" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_1ave3")
+
+[node name="TextureRect4" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_1ave3")
+
+[node name="TextureRect5" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_1ave3")
+
+[connection signal="area_entered" from="Paddle" to="." method="_on_paddle_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
